@@ -42,7 +42,7 @@ modeN "a" c s = do
     putStrLn "基準にするノードを選んでください"
     base <- getLine
     let endText = "q" ++ base ++ "] (q" ++ num ++ ") {$q_{" ++ num ++ "}$};\n"
-    selectPos c endText s
+    nSelectPos c endText s
 
 modeN _ c s = do 
     putStrLn "エラー もう一度モードを選択してください"
@@ -50,7 +50,7 @@ modeN _ c s = do
 
 
 
-selectPos c endText s = do
+nSelectPos c endText s = do
     putStrLn "配置する場所を選択してください\n\
     \(a):above\n\
     \(b):below\n\
@@ -62,21 +62,21 @@ selectPos c endText s = do
     \(bl):below left"
     pos <- getLine
     case pos of
-        "a" -> selectDis c "    \\node[node, above = " endText s
-        "b" -> selectDis c "    \\node[node, below = " endText s
-        "r" -> selectDis c "    \\node[node, right = " endText s
-        "l" -> selectDis c "    \\node[node, left = " endText s
-        "ar" -> selectDis c "    \\node[node, above right = " endText s
-        "al" -> selectDis c "    \\node[node, above left = " endText s
-        "br" -> selectDis c "    \\node[node, below right = " endText s
-        "bl" -> selectDis c "    \\node[node, below left = " endText s
+        "a" -> nSelectDis c "    \\node[node, above = " endText s
+        "b" -> nSelectDis c "    \\node[node, below = " endText s
+        "r" -> nSelectDis c "    \\node[node, right = " endText s
+        "l" -> nSelectDis c "    \\node[node, left = " endText s
+        "ar" -> nSelectDis c "    \\node[node, above right = " endText s
+        "al" -> nSelectDis c "    \\node[node, above left = " endText s
+        "br" -> nSelectDis c "    \\node[node, below right = " endText s
+        "bl" -> nSelectDis c "    \\node[node, below left = " endText s
         _ -> do
             putStrLn "エラー もう一度入力してください"
-            selectPos c endText s
+            nSelectPos c endText s
 
 
 
-selectDis c t endText s = do
+nSelectDis c t endText s = do
     putStrLn "距離は？(半角スペース区切り)"
     x <- getLine
     let y = words x
@@ -89,7 +89,7 @@ selectDis c t endText s = do
             menu (c + 1) $ s ++ t ++ head y ++ "cm and " ++ y !! 1 ++ "cm of " ++ endText
         _ -> do
             putStrLn "エラー もう一度入力してください"
-            selectDis c t endText s
+            nSelectDis c t endText s
         
 
 
